@@ -124,12 +124,18 @@ const watcher = () => {
   gulp.watch('source/*.html', gulp.series(html, reload));
 }
 
+// ghPages
+export const gp = () => {
+  return gulp.src('build/**/*')
+    .pipe(ghPages());
+}
+
 // Build
-export const build = gulp.series(
+export const build = gulp.series (
   clean,
   copy,
   optimizeImages,
-  gulp.parallel(
+  gulp.parallel (
     styles,
     html,
     scripts,
@@ -140,11 +146,11 @@ export const build = gulp.series(
 );
 
 // Default
-export default gulp.series(
+export default gulp.series (
   clean,
   copy,
   copyImages,
-  gulp.parallel(
+  gulp.parallel (
     styles,
     html,
     scripts,
@@ -152,14 +158,8 @@ export default gulp.series(
     createWebp
   ),
   sprite,
-  gulp.series(
+  gulp.series (
     server,
     watcher
   )
 );
-
-// ghPages
-export const gp = () => {
-  return gulp.src('build/**/*')
-    .pipe(ghPages());
-}
